@@ -4,14 +4,14 @@ import getConfig from '../config/config';
 const config = getConfig();
 const shortDelay = 200;
 
-nock(config.services.sendCode.url)
+nock(config.services.requestOtp.url)
   .persist()
   .post('')
   .delay(shortDelay)
   .reply((uri, request, cb) => {
     const parsedRequest = JSON.parse(request);
     console.log('mocks request', parsedRequest); // eslint-disable-line no-console
-    if (parsedRequest.phone === '79161234561') {
+    if (parsedRequest.phone === '79165926645') {
       cb(null, [200, { ref: 'PC72703180000aur' }]);
     }
     cb(null, [400, 'error']);

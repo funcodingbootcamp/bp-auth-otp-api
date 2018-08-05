@@ -45,9 +45,9 @@ export default function getConfig() {
         method: 'GET',
         path: ''
       },
-      sendCode: {
+      requestOtp: {
         method: 'POST',
-        path: '/api/send-code',
+        path: '/api/request-otp',
         url: `http://${serviceHost}/ona-pipe-api/getPhoneConfirm`
       },
       verifyCode: {
@@ -55,9 +55,9 @@ export default function getConfig() {
         path: '/api/verify-code',
         url: `http://${serviceHost}/ona-pipe-api/checkPhoneConfirm`
       },
-      validateJwt: {
+      verifyJwt: {
         method: 'POST',
-        path: '/api/validate-jwt'
+        path: '/api/verify-jwt'
       },
       courses: {
         method: 'GET',

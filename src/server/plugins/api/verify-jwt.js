@@ -10,7 +10,7 @@ const register = async (server, options) => {
     try {
       const { payload: { token } } = request;
       const data = jwt.verify(token, secret);
-      console.log(['info'], `validate-jwt-plugin. Data: ${JSON.stringify(data)}`); // eslint-disable-line no-console
+      console.log(['info'], `verify-jwt-plugin. Data: ${JSON.stringify(data)}`); // eslint-disable-line no-console
       return data;
     } catch (e) {
       console.error('!!! error', e); // eslint-disable-line no-console
@@ -22,8 +22,7 @@ const register = async (server, options) => {
 };
 
 const pluginExport = {
-  name: 'validate-jwt',
-  version: '1.0.0',
+  name: 'verify-jwt',
   register
 };
 

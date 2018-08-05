@@ -1,6 +1,6 @@
-import sendCode from './plugins/api/send-phone-api';
-import verifyCode from './plugins/api/send-sms-api';
-import validateJwt from './plugins/api/validate-jwt-api';
+import requestOtp from './plugins/api/request-otp';
+import verifyCode from './plugins/api/verify-code';
+import verifyJwt from './plugins/api/verify-jwt';
 
 import {
   coursesPlugin,
@@ -12,16 +12,16 @@ import {
 
 const getPlugins = config => [
   {
-    plugin: sendCode,
-    options: { apiConfig: config.services.sendCode }
+    plugin: requestOtp,
+    options: { apiConfig: config.services.requestOtp }
   },
   {
     plugin: verifyCode,
     options: { apiConfig: config.services.verifyCode, jwtConfig: config.jwt }
   },
   {
-    plugin: validateJwt,
-    options: { apiConfig: config.services.validateJwt, jwtConfig: config.jwt }
+    plugin: verifyJwt,
+    options: { apiConfig: config.services.verifyJwt, jwtConfig: config.jwt }
   },
   {
     plugin: coursesPlugin,
