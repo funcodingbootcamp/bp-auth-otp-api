@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { HTTP_ERROR_400, createError } from '../../constants';
-import { sanitizePhone } from '../../../utils/phone';
+import { sanitizePhone } from '../../utils/phone';
 
 const { Schema } = mongoose;
 const userSchema = new Schema({
