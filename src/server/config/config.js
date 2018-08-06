@@ -5,7 +5,7 @@ const serviceHost = process.env.SERVICE_HOST || '0.0.0.0';
 const mongoDbHost = process.env.MONGODB_HOST || '0.0.0.0';
 const mongoDbUser = process.env.MONGODB_USER;
 const mongoDbPass = process.env.MONGODB_PASS;
-const mongoDbName = process.env.MONGODB_NAME || 'BpAuthOtpDb';
+const mongoDbName = process.env.MONGODB_NAME || 'bp_auth_otp';
 const env = process.env.NODE_ENV || 'localhost';
 const { PROD_BUILD } = process.env;
 console.log('useMocks', useMocks); // eslint-disable-line
@@ -47,8 +47,7 @@ export default function getConfig() {
       },
       requestOtp: {
         method: 'POST',
-        path: '/api/request-otp',
-        url: `http://${serviceHost}/ona-pipe-api/getPhoneConfirm`
+        path: '/api/request-otp'
       },
       verifyCode: {
         method: 'POST',
