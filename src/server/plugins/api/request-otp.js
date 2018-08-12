@@ -1,14 +1,7 @@
-import mongoose from 'mongoose';
 import { HTTP_ERROR_400, createError } from '../../constants';
 import { sanitizePhone, generateCode } from '../../utils/phone';
 import twilioClient from '../../twilio';
-
-const { Schema } = mongoose;
-const userSchema = new Schema({
-  uid: { type: String, unique: true, required: true },
-  code: { type: Number }
-});
-const User = mongoose.model('User', userSchema);
+import User from '../../models/user-model';
 
 const register = async (server, options) => {
   const { apiConfig: { method, path } } = options;
@@ -17,7 +10,7 @@ const register = async (server, options) => {
     const { phone } = request.payload;
     try {
       if (!phone) {
-        return h.response(createError('phone no provided!')).code(400);
+        return h.response(createError('phone not provided!')).code(400);
       }
       const uid = sanitizePhone(phone);
       const users = await User.find({ uid });
@@ -29,14 +22,15 @@ const register = async (server, options) => {
         from: '+19726350916'
       });
       console.log('message.sid', message.sid); // eslint-disable-line
+      // Existing User
       if (user) {
-        await user.update({ code, $inc: { __v: 1 } });
+        await user.update({ code, codeValid: true, $inc: { __v: 1 } });
         const updatedUsers = await User.find({ uid });
         console.log('user updated', updatedUsers[0]); // eslint-disable-line
         return h.response('code sent').code(200);
       }
       // New User
-      const newUser = new User({ uid, code });
+      const newUser = new User({ uid, code, codeValid: true });
       const newUserPersisted = await newUser.save();
       console.log('user created\n', newUserPersisted); // eslint-disable-line
       return h.response('code sent').code(201);
@@ -45,7 +39,7 @@ const register = async (server, options) => {
       if (e.message) {
         return h.response(createError(e.message)).code(400);
       }
-      return HTTP_ERROR_400;
+      return h.response(HTTP_ERROR_400).code(400);
     }
   };
 

@@ -1,5 +1,5 @@
 import requestOtp from './plugins/api/request-otp';
-import verifyCode from './plugins/api/verify-code';
+import verifyOtp from './plugins/api/verify-otp';
 import verifyJwt from './plugins/api/verify-jwt';
 
 import {
@@ -16,8 +16,8 @@ const getPlugins = config => [
     options: { apiConfig: config.services.requestOtp }
   },
   {
-    plugin: verifyCode,
-    options: { apiConfig: config.services.verifyCode, jwtConfig: config.jwt }
+    plugin: verifyOtp,
+    options: { apiConfig: config.services.verifyOtp, jwtConfig: config.jwt }
   },
   {
     plugin: verifyJwt,
