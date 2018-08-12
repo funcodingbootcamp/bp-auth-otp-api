@@ -49,10 +49,9 @@ export default function getConfig() {
         method: 'POST',
         path: '/api/request-otp'
       },
-      verifyCode: {
+      verifyOtp: {
         method: 'POST',
-        path: '/api/verify-code',
-        url: `http://${serviceHost}/ona-pipe-api/checkPhoneConfirm`
+        path: '/api/verify-otp'
       },
       verifyJwt: {
         method: 'POST',

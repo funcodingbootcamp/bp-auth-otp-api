@@ -1,16 +1,7 @@
-import mongoose from 'mongoose';
 import { HTTP_ERROR_400, createError } from '../../constants';
-import { sanitizePhone } from '../../utils/phone';
-
-const { Schema } = mongoose;
-const userSchema = new Schema({
-  uid: {
-    type: String,
-    unique: true,
-    required: true
-  }
-});
-const User = mongoose.model('User', userSchema);
+import { sanitizePhone, generateCode } from '../../utils/phone';
+import twilioClient from '../../twilio';
+import User from '../../models/user-model';
 
 const register = async (server, options) => {
   const { apiConfig: { method, path } } = options;
@@ -19,19 +10,36 @@ const register = async (server, options) => {
     const { phone } = request.payload;
     try {
       if (!phone) {
-        return h.response(createError('phone no provided!')).code(400);
+        return h.response(createError('phone not provided!')).code(400);
       }
       const uid = sanitizePhone(phone);
-      const user = new User({ uid });
-      const res = await user.save();
-      console.log('user created\n', res); // eslint-disable-line no-console
-      return h.response(res).code(201);
+      const users = await User.find({ uid });
+      const user = users[0];
+      const code = generateCode();
+      const message = await twilioClient.messages.create({
+        body: `Your code is ${code}`,
+        to: `+${uid}`,
+        from: '+19726350916'
+      });
+      console.log('message.sid', message.sid); // eslint-disable-line
+      // Existing User
+      if (user) {
+        await user.update({ code, codeValid: true, $inc: { __v: 1 } });
+        const updatedUsers = await User.find({ uid });
+        console.log('user updated', updatedUsers[0]); // eslint-disable-line
+        return h.response('code sent').code(200);
+      }
+      // New User
+      const newUser = new User({ uid, code, codeValid: true });
+      const newUserPersisted = await newUser.save();
+      console.log('user created\n', newUserPersisted); // eslint-disable-line
+      return h.response('code sent').code(201);
     } catch (e) {
       console.error('!!! error', e); // eslint-disable-line no-console
       if (e.message) {
         return h.response(createError(e.message)).code(400);
       }
-      return HTTP_ERROR_400;
+      return h.response(HTTP_ERROR_400).code(400);
     }
   };
 
