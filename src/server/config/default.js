@@ -37,7 +37,7 @@ export default function getConfig() {
 
     jwt: {
       secret: 'NeverShareYourSecret',
-      expiresIn: 86400
+      expiresIn: 86400 // seconds
     },
 
     services: {
@@ -45,6 +45,7 @@ export default function getConfig() {
         method: 'GET',
         path: ''
       },
+
       requestOtp: {
         method: 'POST',
         path: '/api/request-otp'
@@ -56,6 +57,15 @@ export default function getConfig() {
       verifyJwt: {
         method: 'POST',
         path: '/api/verify-jwt'
+      },
+
+      signUpPass: {
+        method: 'POST',
+        path: '/api/sign-up-pass'
+      },
+      signInPass: {
+        method: 'POST',
+        path: '/api/sign-in-pass'
       }
     }
   };

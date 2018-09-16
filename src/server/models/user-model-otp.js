@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
-const userSchema = new Schema({
+const userOtpSchema = new Schema({
   uid: { type: String, unique: true, required: true },
   code: { type: Number },
   codeValid: { type: Boolean }
 });
-const User = mongoose.model('User', userSchema);
+const UserOtp = mongoose.model('UserOtp', userOtpSchema);
 
-export default User;
+export default UserOtp;
