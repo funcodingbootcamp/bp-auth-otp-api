@@ -3,6 +3,7 @@ import verifyOtp from './plugins/api/otp/verify-otp';
 import verifyJwt from './plugins/api/verify-jwt';
 
 import signUpPass from './plugins/api/pass/sign-up-pass';
+import signInPass from './plugins/api/pass/sign-in-pass';
 
 const getPlugins = config => [
   {
@@ -20,6 +21,10 @@ const getPlugins = config => [
   {
     plugin: signUpPass,
     options: { apiConfig: config.services.signUpPass, jwtConfig: config.jwt }
+  },
+  {
+    plugin: signInPass,
+    options: { apiConfig: config.services.signInPass, jwtConfig: config.jwt }
   }
 ];
 
