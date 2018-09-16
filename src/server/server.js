@@ -1,7 +1,7 @@
 import Hapi from 'hapi';
 import mongoose from 'mongoose';
 import getPlugins from './plugins';
-import getConfig from './config/config';
+import getConfig from './config/default';
 
 const config = getConfig();
 const {
