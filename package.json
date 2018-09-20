@@ -10,7 +10,7 @@
     "lint-fix": "eslint . --ext .js --fix",
     "build": "rimraf .build/ && babel ./src/server --out-dir .build/server/ --copy-files",
     "start-build": "NODE_ENV=localhost APP_MOCKS=1 node ./.build/server/server",
-    "start": "NODE_ENV=localhost APP_MOCKS=1 APP_MODE_DEV=1 nodemon --exec babel-node src/server/server --ignore src/client",
+    "start": "PORT=3001 NODE_ENV=localhost APP_MOCKS=0 APP_MODE_DEV=1 nodemon --exec babel-node src/server/server --ignore src/client",
     "docker-build": "./docker-build.sh $npm_package_name $npm_package_version"
   },
   "repository": {

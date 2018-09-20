@@ -7,6 +7,7 @@ const mongoDbUser = process.env.MONGODB_USER;
 const mongoDbPass = process.env.MONGODB_PASS;
 const mongoDbName = process.env.MONGODB_NAME || 'bp_auth_otp';
 const env = process.env.NODE_ENV || 'localhost';
+const port = process.env.PORT || 3000;
 const { PROD_BUILD } = process.env;
 console.log('useMocks', useMocks); // eslint-disable-line
 console.log('serviceHost', serviceHost); // eslint-disable-line
@@ -32,7 +33,7 @@ export default function getConfig() {
       mongoDbUser,
       mongoDbPass,
       mongoDbName,
-      port: 3000
+      port
     },
 
     jwt: {
