@@ -19,7 +19,9 @@ module.exports = {
     "comma-dangle": ["error", "never"],
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "import/prefer-default-export": [0],
+    "func-names": [0]
   },
   settings: {
     "import/resolver": {

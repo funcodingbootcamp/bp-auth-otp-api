@@ -1,7 +1,7 @@
-import { HTTP_ERROR_400, createError } from '../../constants';
-import { sanitizePhone, generateCode } from '../../utils/phone';
-import twilioClient from '../../twilio';
-import User from '../../models/user-model';
+import { HTTP_ERROR_400, createError } from '../../../constants/errors';
+import { sanitizePhone, generateCode } from '../../../utils/phone';
+import twilioClient from '../../../twilio';
+import UserOtp from '../../../models/user-model-otp';
 
 const register = async (server, options) => {
   const { apiConfig: { method, path } } = options;
@@ -13,7 +13,7 @@ const register = async (server, options) => {
         return h.response(createError('phone not provided!')).code(400);
       }
       const uid = sanitizePhone(phone);
-      const users = await User.find({ uid });
+      const users = await UserOtp.find({ uid });
       const user = users[0];
       const code = generateCode();
       const message = await twilioClient.messages.create({
@@ -25,12 +25,12 @@ const register = async (server, options) => {
       // Existing User
       if (user) {
         await user.update({ code, codeValid: true, $inc: { __v: 1 } });
-        const updatedUsers = await User.find({ uid });
+        const updatedUsers = await UserOtp.find({ uid });
         console.log('user updated', updatedUsers[0]); // eslint-disable-line
         return h.response('code sent').code(200);
       }
       // New User
-      const newUser = new User({ uid, code, codeValid: true });
+      const newUser = new UserOtp({ uid, code, codeValid: true });
       const newUserPersisted = await newUser.save();
       console.log('user created\n', newUserPersisted); // eslint-disable-line
       return h.response('code sent').code(201);
