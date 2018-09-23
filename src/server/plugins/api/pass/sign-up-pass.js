@@ -15,7 +15,7 @@ const register = async (server, options) => {
       newUser.setPassword(password);
       const jwt = newUser.generateJWT(secret, expiresIn);
       await newUser.save();
-      return h.response(jwt).code(200);
+      return h.response({ payload: jwt }).code(200);
     } catch (e) {
       console.error('!!! error', e); // eslint-disable-line no-console
       if (e.message) {

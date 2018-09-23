@@ -1,19 +1,20 @@
 export const HTTP_ERROR_400 = {
-  statusCode: 400,
-  error: 'Sorry, Bad Client Request'
+  error: {
+    code: 400,
+    messsage: 'Sorry, Bad Client Request'
+  }
 };
 
 export const HTTP_ERROR_500 = {
-  statusCode: 500,
-  error: 'Sorry, Server Error'
+  error: {
+    code: 500,
+    messsage: 'Sorry, Server Error'
+  }
 };
 
-export const createError = (error, statusCode = 400) => ({
-  statusCode,
-  error
-});
-
-export const createSuccess = (message, statusCode) => ({
-  statusCode,
-  message
+export const createError = (message, code = 400) => ({
+  error: {
+    code,
+    message
+  }
 });

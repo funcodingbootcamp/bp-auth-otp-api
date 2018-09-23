@@ -24,7 +24,7 @@ const register = async (server, options) => {
         return h.response(createError(ERR_MSG_EMAIL_PASS_NOT_CORRECT)).code(400);
       }
       const jwt = user.generateJWT(secret, expiresIn);
-      return h.response(jwt).code(200);
+      return h.response({ payload: jwt }).code(200);
     } catch (e) {
       console.error('!!! error', e); // eslint-disable-line no-console
       if (e.message) {
