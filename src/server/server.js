@@ -11,9 +11,15 @@ const {
   mongoDbName
 } = config.server;
 if (mongoDbUser && mongoDbPass) {
-  mongoose.connect(`mongodb://${mongoDbUser}:${mongoDbPass}@${mongoDbHost}/${mongoDbName}`);
+  mongoose.connect(
+    `mongodb://${mongoDbUser}:${mongoDbPass}@${mongoDbHost}/${mongoDbName}`,
+    { useNewUrlParser: true }
+  );
 } else {
-  mongoose.connect(`mongodb://${mongoDbHost}/${mongoDbName}`);
+  mongoose.connect(
+    `mongodb://${mongoDbHost}/${mongoDbName}`,
+    { useNewUrlParser: true }
+  );
 }
 
 const db = mongoose.connection;

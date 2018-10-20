@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import { AUTH_TYPES } from '../constants/authTypes';
 import { PERMISSION_TYPES } from '../constants/permissionTypes';
 
+mongoose.set('useCreateIndex', true)
 const { Schema } = mongoose;
 const userPassSchema = new Schema({
   email: { type: String, unique: true, required: true },
