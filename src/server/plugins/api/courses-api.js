@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { HTTP_ERROR_400, createError } from '../../constants/errors';
 import { serverConsoleError } from '../../utils/server-console-error';
 
-mongoose.set('useCreateIndex', true)
+mongoose.set('useCreateIndex', true);
 const courseSchema = mongoose.Schema({ name: String, code: String, comment: String });
 courseSchema.set('timestamps', true);
 const Course = mongoose.model('Course', courseSchema);
