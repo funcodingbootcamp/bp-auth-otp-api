@@ -1,9 +1,12 @@
-import { HTTP_ERROR_400, createError } from '../../../constants/errors';
+import Boom from 'boom';
+import {
+  ERR_MSG_EMAIL_PASS_NOT_CORRECT,
+  ERR_MSG_EMAIL_PASS_REQUIRED,
+  ERR_MSG_HTTP_ERROR_400
+} from '../../../constants/errors';
 import UserPass from '../../../models/user-model-pass';
 import { normalizeEmail } from '../../../utils/email';
-
-const ERR_MSG_EMAIL_PASS_REQUIRED = 'email or password not provided!';
-const ERR_MSG_EMAIL_PASS_NOT_CORRECT = 'email or password not correct!';
+import { serverConsoleError } from '../../../utils/server-console-error';
 
 const register = async (server, options) => {
   const { apiConfig: { method, path }, jwtConfig: { secret, expiresIn } } = options;
@@ -12,25 +15,22 @@ const register = async (server, options) => {
     const { email, password } = request.payload || {};
     try {
       if (!email || !password) {
-        return h.response(createError(ERR_MSG_EMAIL_PASS_REQUIRED)).code(400);
+        return Boom.badRequest(ERR_MSG_EMAIL_PASS_REQUIRED);
       }
       const emailNorm = normalizeEmail(email);
       const users = await UserPass.find({ email: emailNorm });
       const user = users[0];
-      if (!user) {
-        return h.response(createError(ERR_MSG_EMAIL_PASS_NOT_CORRECT)).code(400);
-      }
-      if (!user.validatePassword(password)) {
-        return h.response(createError(ERR_MSG_EMAIL_PASS_NOT_CORRECT)).code(400);
+      if (!user || (user && !user.validatePassword(password))) {
+        return Boom.badRequest(ERR_MSG_EMAIL_PASS_NOT_CORRECT);
       }
       const jwt = user.generateJWT(secret, expiresIn);
       return h.response({ payload: jwt }).code(200);
     } catch (e) {
-      console.error('!!! error', e); // eslint-disable-line no-console
+      serverConsoleError('sign-in-pass', e);
       if (e.message) {
-        return h.response(createError(e.message)).code(400);
+        return Boom.badRequest(e.message);
       }
-      return h.response(HTTP_ERROR_400).code(400);
+      return Boom.badRequest(ERR_MSG_HTTP_ERROR_400);
     }
   };
 

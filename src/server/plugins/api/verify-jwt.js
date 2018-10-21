@@ -1,22 +1,24 @@
 import jwt from 'jsonwebtoken';
-import { createError, HTTP_ERROR_400 } from '../../constants/errors';
+import Boom from 'boom';
+import { ERR_MSG_HTTP_ERROR_400 } from '../../constants/errors';
+import { serverConsoleError } from '../../utils/server-console-error';
 
 const register = async (server, options) => {
   const {
     apiConfig: { method, path }, jwtConfig: { secret }
   } = options;
 
-  const handler = async (request, h) => {
+  const handler = async (request) => {
     try {
       const { payload: { token } } = request;
       const payload = jwt.verify(token, secret);
       return { payload };
     } catch (e) {
-      console.error('!!! error', e); // eslint-disable-line no-console
+      serverConsoleError('verify-jwt', e);
       if (e.message) {
-        return h.response(createError(e.message));
+        return Boom.badRequest(e.message);
       }
-      return h.response(HTTP_ERROR_400).code(400);
+      return Boom.badRequest(ERR_MSG_HTTP_ERROR_400);
     }
   };
 

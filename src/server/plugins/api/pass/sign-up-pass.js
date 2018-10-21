@@ -1,6 +1,12 @@
-import { HTTP_ERROR_400, createError } from '../../../constants/errors';
+import Boom from 'boom';
+import {
+  ERR_MSG_EMAIL_PASS_REQUIRED,
+  ERR_MSG_HTTP_ERROR_400,
+  ERR_MSG_EMAIL_DUPLICATE
+} from '../../../constants/errors';
 import UserPass from '../../../models/user-model-pass';
 import { normalizeEmail } from '../../../utils/email';
+import { serverConsoleError } from '../../../utils/server-console-error';
 
 const register = async (server, options) => {
   const { apiConfig: { method, path }, jwtConfig: { secret, expiresIn } } = options;
@@ -9,7 +15,7 @@ const register = async (server, options) => {
     const { email, password } = request.payload || {};
     try {
       if (!email || !password) {
-        return h.response(createError('email or password not provided!')).code(400);
+        return Boom.badRequest(ERR_MSG_EMAIL_PASS_REQUIRED);
       }
       const newUser = new UserPass({ email: normalizeEmail(email) });
       newUser.setPassword(password);
@@ -17,11 +23,14 @@ const register = async (server, options) => {
       await newUser.save();
       return h.response({ payload: jwt }).code(200);
     } catch (e) {
-      console.error('!!! error', e); // eslint-disable-line no-console
-      if (e.message) {
-        return h.response(createError(e.message)).code(400);
+      if (e.name === 'MongoError' && e.code === 11000) {
+        return Boom.badRequest(ERR_MSG_EMAIL_DUPLICATE);
       }
-      return h.response(HTTP_ERROR_400).code(400);
+      serverConsoleError('sign-up-pass', e);
+      if (e.message) {
+        return Boom.badRequest(e.message);
+      }
+      return Boom.badRequest(ERR_MSG_HTTP_ERROR_400);
     }
   };
 
