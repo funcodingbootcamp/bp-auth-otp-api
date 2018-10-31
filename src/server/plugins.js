@@ -13,6 +13,8 @@ import {
   courseDeletePlugin
 } from './plugins/api/courses-api';
 
+import mnAssesment from './plugins/api/mn/mn-assesment';
+
 const getPlugins = config => [
   {
     plugin: requestOtp,
@@ -53,6 +55,10 @@ const getPlugins = config => [
   {
     plugin: courseDeletePlugin,
     options: { apiConfig: config.services.courseDelete }
+  },
+  {
+    plugin: mnAssesment,
+    options: { apiConfig: config.services.mnAssesmentPost }
   }
 ];
 

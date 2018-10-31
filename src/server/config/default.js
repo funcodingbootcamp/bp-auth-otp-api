@@ -88,6 +88,11 @@ export default function getConfig() {
       courseDelete: {
         method: 'DELETE',
         path: '/api/courses/{courseId}'
+      },
+
+      mnAssesmentPost: {
+        method: 'POST',
+        path: '/api/mn-assesment'
       }
     }
   };
