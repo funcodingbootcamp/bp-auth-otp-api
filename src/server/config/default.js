@@ -90,9 +90,9 @@ export default function getConfig() {
         path: '/api/courses/{courseId}'
       },
 
-      mnAssesmentPost: {
+      mnAssessmentPost: {
         method: 'POST',
-        path: '/api/mn-assesment'
+        path: '/api/mn-assessment'
       }
     }
   };

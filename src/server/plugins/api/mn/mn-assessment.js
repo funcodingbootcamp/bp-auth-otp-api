@@ -1,18 +1,27 @@
 import Boom from 'boom';
 import { ERR_MSG_HTTP_ERROR_400 } from '../../../constants/errors';
-import MnAssesment from '../../../models/mn-assesment';
+import MnAssessment from '../../../models/mn-assessment';
 import { serverConsoleError } from '../../../utils/server-console-error';
+import { generateMnAssessmentJson } from '../../../utils/mn/mn-assessment-generator';
 
 const register = async (server, options) => {
   const { apiConfig: { method, path } } = options;
 
   const handler = async (request, h) => {
     const { number } = request.payload || {};
-    // const numberInt = parseInt(number, 10);
+    const numberInt = parseInt(number, 10);
     try {
-      const newMnAssesment = new MnAssesment({ name: `Test ${number}` });
-      await newMnAssesment.save();
-      return h.response({ payload: 'saved successfully' }).code(200);
+      let res;
+      // eslint-disable-next-line
+      if (!isNaN(numberInt)) {
+        const assessmentsArr = [];
+        for (let i = 0; i < numberInt; i++) {
+          const assessment = generateMnAssessmentJson();
+          assessmentsArr.push({ assessment });
+        }
+        res = await MnAssessment.insertMany(assessmentsArr);
+      }
+      return h.response({ payload: 'saved successfully', res }).code(200);
     } catch (e) {
       serverConsoleError('sign-in-pass', e);
       if (e.message) {
@@ -26,7 +35,7 @@ const register = async (server, options) => {
 };
 
 const pluginExport = {
-  name: 'mn-assesment',
+  name: 'mn-assessment',
   register
 };
 
