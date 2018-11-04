@@ -148,7 +148,7 @@ export function generateMnAssessmentJson() {
       ]
     }
   ];
-  const collection = faker.random.arrayElement(collectionArr);
+  const collection1 = faker.random.arrayElement(collectionArr);
   const questionTypes = [
     faker.random.arrayElement(questionTypeArr),
     faker.random.arrayElement(questionTypeArr)
@@ -173,7 +173,7 @@ export function generateMnAssessmentJson() {
     subject,
     course,
     standards,
-    collection,
+    collection1,
     questionTypes,
     depthOfKnowledge,
     difficulty,

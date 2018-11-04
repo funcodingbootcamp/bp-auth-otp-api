@@ -17,7 +17,7 @@ const register = async (server, options) => {
         const assessmentsArr = [];
         for (let i = 0; i < numberInt; i++) {
           const assessment = generateMnAssessmentJson();
-          assessmentsArr.push({ assessment });
+          assessmentsArr.push({ ...assessment });
         }
         res = await MnAssessment.insertMany(assessmentsArr);
       }
