@@ -10,6 +10,12 @@ const {
   mongoDbPass,
   mongoDbName
 } = config.server;
+console.log(123);
+console.log('mongoDbHost', mongoDbHost);
+console.log('mongoDbUser', mongoDbUser);
+console.log('mongoDbPass', mongoDbPass);
+console.log('mongoDbName', mongoDbName);
+
 if (mongoDbUser && mongoDbPass) {
   mongoose.connect(
     `mongodb://${mongoDbUser}:${mongoDbPass}@${mongoDbHost}/${mongoDbName}`,
