@@ -28,7 +28,7 @@
     "boom": "^7.3.0",
     "hapi": "^17.8.5",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.7.4",
+    "mongoose": "^5.7.5",
     "nock": "^9.6.1",
     "twilio": "^3.35.1"
   },
