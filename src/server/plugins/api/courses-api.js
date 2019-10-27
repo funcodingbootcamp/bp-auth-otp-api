@@ -1,12 +1,6 @@
-import mongoose from 'mongoose';
 import { HTTP_ERROR_400, createError } from '../../constants/errors';
 import { serverConsoleError } from '../../utils/server-console-error';
-
-mongoose.set('useCreateIndex', true);
-const courseSchema = mongoose.Schema({ name: String, code: String, comment: String });
-courseSchema.set('timestamps', true);
-const Course = mongoose.model('Course', courseSchema);
-
+import Course from '../../models/course-model';
 
 // courses index
 const registerCourses = async (server, options) => {
@@ -73,6 +67,7 @@ const registerCoursePatch = async (server, options) => {
 
   const handler = async (request, h) => {
     const { params: { courseId } = {}, payload } = request;
+    console.log(payload);
     try {
       const courses = await Course.find({ _id: courseId });
       if (courses.length === 1) {
