@@ -13,6 +13,14 @@ import {
   courseDeletePlugin
 } from './plugins/api/courses-api';
 
+import {
+  clientsPlugin,
+  clientPostPlugin,
+  clientPlugin,
+  clientPatchPlugin,
+  clientDeletePlugin
+} from './plugins/api/clients-api';
+
 const getPlugins = config => [
   {
     plugin: requestOtp,
@@ -53,6 +61,26 @@ const getPlugins = config => [
   {
     plugin: courseDeletePlugin,
     options: { apiConfig: config.services.courseDelete }
+  },
+  {
+    plugin: clientsPlugin,
+    options: { apiConfig: config.services.clients }
+  },
+  {
+    plugin: clientPostPlugin,
+    options: { apiConfig: config.services.clientPost }
+  },
+  {
+    plugin: clientPlugin,
+    options: { apiConfig: config.services.client }
+  },
+  {
+    plugin: clientPatchPlugin,
+    options: { apiConfig: config.services.clientPatch }
+  },
+  {
+    plugin: clientDeletePlugin,
+    options: { apiConfig: config.services.clientDelete }
   }
 ];
 

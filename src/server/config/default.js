@@ -88,6 +88,27 @@ export default function getConfig() {
       courseDelete: {
         method: 'DELETE',
         path: '/api/courses/{courseId}'
+      },
+
+      clients: {
+        method: 'GET',
+        path: '/api/clients'
+      },
+      clientPost: {
+        method: 'POST',
+        path: '/api/clients'
+      },
+      client: {
+        method: 'GET',
+        path: '/api/clients/{clientId}'
+      },
+      clientPatch: {
+        method: 'PATCH',
+        path: '/api/clients/{clientId}'
+      },
+      clientDelete: {
+        method: 'DELETE',
+        path: '/api/clients/{clientId}'
       }
     }
   };
