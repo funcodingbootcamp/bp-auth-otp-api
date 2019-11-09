@@ -1,9 +1,9 @@
-import requestOtp from "./plugins/api/otp/request-otp";
-import verifyOtp from "./plugins/api/otp/verify-otp";
-import verifyJwt from "./plugins/api/verify-jwt";
+import requestOtp from './plugins/api/otp/request-otp';
+import verifyOtp from './plugins/api/otp/verify-otp';
+import verifyJwt from './plugins/api/verify-jwt';
 
-import signUpPass from "./plugins/api/pass/sign-up-pass";
-import signInPass from "./plugins/api/pass/sign-in-pass";
+import signUpPass from './plugins/api/pass/sign-up-pass';
+import signInPass from './plugins/api/pass/sign-in-pass';
 
 import {
   coursesPlugin,
@@ -11,7 +11,7 @@ import {
   coursePlugin,
   coursePatchPlugin,
   courseDeletePlugin
-} from "./plugins/api/courses-api";
+} from './plugins/api/courses-api';
 
 import {
   clientsPlugin,
@@ -19,7 +19,7 @@ import {
   clientPlugin,
   clientPatchPlugin,
   clientDeletePlugin
-} from "./plugins/api/clients-api";
+} from './plugins/api/clients-api';
 
 const getPlugins = config => [
   {

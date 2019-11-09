@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-mongoose.set("useCreateIndex", true);
+mongoose.set('useCreateIndex', true);
 const clientSchema = mongoose.Schema({
   id: Number,
   firstName: String,
@@ -8,7 +8,7 @@ const clientSchema = mongoose.Schema({
   email: String,
   phone: Number
 });
-clientSchema.set("timestamps", true);
-const Client = mongoose.model("Client", clientSchema);
+clientSchema.set('timestamps', true);
+const Client = mongoose.model('Client', clientSchema);
 
 export default Client;

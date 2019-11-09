@@ -1,7 +1,7 @@
 # BP Auth OTP API
 
-OTP authentication service!
+CRUD for MongoDB
 
-## TODO
+## Code style
 
-* fix React Native Auth
+- Use prettier plugin for code style

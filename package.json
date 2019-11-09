@@ -45,11 +45,18 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-react": "^7.16.0",
+    "husky": "^3.0.9",
     "jest": "^23.6.0",
     "nodemon": "^1.19.4",
+    "prettier": "^1.19.1",
     "rimraf": "^2.7.1"
   },
   "jest": {
     "testURL": "http://localhost/"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
   }
 }

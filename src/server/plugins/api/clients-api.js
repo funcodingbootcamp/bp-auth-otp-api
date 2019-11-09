@@ -1,6 +1,6 @@
-import { HTTP_ERROR_400, createError } from "../../constants/errors";
-import { serverConsoleError } from "../../utils/server-console-error";
-import Client from "../../models/client-model";
+import { HTTP_ERROR_400, createError } from '../../constants/errors';
+import { serverConsoleError } from '../../utils/server-console-error';
+import Client from '../../models/client-model';
 
 // clients index
 const registerClients = async (server, options) => {
@@ -13,7 +13,7 @@ const registerClients = async (server, options) => {
       const res = await Client.find();
       return res;
     } catch (e) {
-      serverConsoleError("clientsPlugin", e);
+      serverConsoleError('clientsPlugin', e);
       return HTTP_ERROR_400;
     }
   };
@@ -21,7 +21,7 @@ const registerClients = async (server, options) => {
   server.route({ method, path, handler });
 };
 export const clientsPlugin = {
-  name: "clientsPlugin",
+  name: 'clientsPlugin',
   register: registerClients
 };
 
@@ -37,7 +37,7 @@ const registerClientPost = async (server, options) => {
       const res = await client.save();
       return h.response(res).code(201);
     } catch (e) {
-      serverConsoleError("clientPostPlugin", e);
+      serverConsoleError('clientPostPlugin', e);
       return HTTP_ERROR_400;
     }
   };
@@ -45,7 +45,7 @@ const registerClientPost = async (server, options) => {
   server.route({ method, path, handler });
 };
 export const clientPostPlugin = {
-  name: "clientPostPlugin",
+  name: 'clientPostPlugin',
   register: registerClientPost
 };
 
@@ -62,16 +62,16 @@ const registerClient = async (server, options) => {
       if (clients.length === 1) {
         return h.response(clients[0]).code(200);
       }
-      return h.response(createError("Document not found")).code(400);
+      return h.response(createError('Document not found')).code(400);
     } catch (e) {
-      serverConsoleError("clientPlugin", e);
+      serverConsoleError('clientPlugin', e);
       return h.response(HTTP_ERROR_400).code(400);
     }
   };
 
   server.route({ method, path, handler });
 };
-export const clientPlugin = { name: "clientPlugin", register: registerClient };
+export const clientPlugin = { name: 'clientPlugin', register: registerClient };
 
 // update client
 const registerClientPatch = async (server, options) => {
@@ -89,9 +89,9 @@ const registerClientPatch = async (server, options) => {
         const res = await Client.find({ _id: clientId });
         return h.response(res[0]).code(200);
       }
-      return h.response(createError("Document not found")).code(400);
+      return h.response(createError('Document not found')).code(400);
     } catch (e) {
-      serverConsoleError("clientPatchPlugin", e);
+      serverConsoleError('clientPatchPlugin', e);
       return h.response(HTTP_ERROR_400).code(400);
     }
   };
@@ -99,7 +99,7 @@ const registerClientPatch = async (server, options) => {
   server.route({ method, path, handler });
 };
 export const clientPatchPlugin = {
-  name: "clientPatchPlugin",
+  name: 'clientPatchPlugin',
   register: registerClientPatch
 };
 
@@ -117,9 +117,9 @@ const registerClientDelete = async (server, options) => {
         await Client.find({ _id: clientId }).deleteOne();
         return h.response().code(204);
       }
-      return h.response(createError("Document not found")).code(400);
+      return h.response(createError('Document not found')).code(400);
     } catch (e) {
-      serverConsoleError("clientDeletePlugin", e);
+      serverConsoleError('clientDeletePlugin', e);
       return h.response(HTTP_ERROR_400).code(400);
     }
   };
@@ -128,6 +128,6 @@ const registerClientDelete = async (server, options) => {
 };
 
 export const clientDeletePlugin = {
-  name: "clientDeletePlugin",
+  name: 'clientDeletePlugin',
   register: registerClientDelete
 };
