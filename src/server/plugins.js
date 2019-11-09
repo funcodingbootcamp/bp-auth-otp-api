@@ -1,9 +1,9 @@
-import requestOtp from './plugins/api/otp/request-otp';
-import verifyOtp from './plugins/api/otp/verify-otp';
-import verifyJwt from './plugins/api/verify-jwt';
+import requestOtp from "./plugins/api/otp/request-otp";
+import verifyOtp from "./plugins/api/otp/verify-otp";
+import verifyJwt from "./plugins/api/verify-jwt";
 
-import signUpPass from './plugins/api/pass/sign-up-pass';
-import signInPass from './plugins/api/pass/sign-in-pass';
+import signUpPass from "./plugins/api/pass/sign-up-pass";
+import signInPass from "./plugins/api/pass/sign-in-pass";
 
 import {
   coursesPlugin,
@@ -11,7 +11,15 @@ import {
   coursePlugin,
   coursePatchPlugin,
   courseDeletePlugin
-} from './plugins/api/courses-api';
+} from "./plugins/api/courses-api";
+
+import {
+  clientsPlugin,
+  clientPostPlugin,
+  clientPlugin,
+  clientPatchPlugin,
+  clientDeletePlugin
+} from "./plugins/api/clients-api";
 
 const getPlugins = config => [
   {
@@ -53,6 +61,26 @@ const getPlugins = config => [
   {
     plugin: courseDeletePlugin,
     options: { apiConfig: config.services.courseDelete }
+  },
+  {
+    plugin: clientsPlugin,
+    options: { apiConfig: config.services.clients }
+  },
+  {
+    plugin: clientPostPlugin,
+    options: { apiConfig: config.services.clientPost }
+  },
+  {
+    plugin: clientPlugin,
+    options: { apiConfig: config.services.client }
+  },
+  {
+    plugin: clientPatchPlugin,
+    options: { apiConfig: config.services.clientPatch }
+  },
+  {
+    plugin: clientDeletePlugin,
+    options: { apiConfig: config.services.clientDelete }
   }
 ];
 
